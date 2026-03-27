@@ -5,13 +5,16 @@
 
 void Point::add_bit(Direction d) {
     const std::map<Direction, size_t>move_bit = {
-        std::make_pair(Direction::LEFT, 0),
-        std::make_pair(Direction::RIGHT, 1),
-        std::make_pair(Direction::DOWN, 2),
-        std::make_pair(Direction::UP, 3)
+        std::make_pair(Direction::LEFT, 3),
+        std::make_pair(Direction::RIGHT, 3),
+        std::make_pair(Direction::DOWN, 0),
+        std::make_pair(Direction::UP, 0)
     };
 
     auto ptr = move_bit.find(d);
+    if (ptr == move_bit.end())
+        return;
+
     size_t pos = ptr->second;
 
     mask[pos] = 1;
@@ -22,7 +25,7 @@ size_t Point::get_value() { return mask.to_ullong(); }
 std::string to_str(size_t x, size_t y, size_t val) {
     static const std::string base = " 0 0.000000 0.000000 $ $";
     
-    std::string result = std::to_string(x) + std::to_string(y) + std::to_string(val);
+    std::string result = std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(val);
     
     return result + base;
 }
@@ -35,7 +38,8 @@ size_t rand_gen(size_t mn, size_t mx) {
 }
 
 std::vector<std::vector<size_t>> get_values(std::vector<Comand>& com, size_t test_cnt) {
-    std::vector<std::vector<size_t>>res(test_cnt);
+    std::vector<std::vector<size_t>>res;
+    res.reserve(test_cnt);
 
     auto len = com.size();
     std::vector<size_t>min_values(len);
@@ -104,11 +108,11 @@ std::vector<std::string> set_values(std::vector<size_t>& values, std::vector<Com
 
     int lenx = mx_x + 2 * extra_len;
     if (mn_x < 0)
-        lenx += -mn_x;
+        lenx += std::abs(mn_x);
 
     int leny = mx_y + 2 * extra_len;
     if (mn_y < 0)
-        leny += -mn_y;
+        leny += std::abs(mn_y);
     
     std::vector<std::string>res;
 
@@ -116,8 +120,9 @@ std::vector<std::string> set_values(std::vector<size_t>& values, std::vector<Com
     res.push_back(std::to_string(lenx) + " " + std::to_string(leny));
     res.push_back("; Robot position: x, y");
     res.push_back("2 2");
+    res.push_back("; A set of special Fields: x, y, Wall, Color, Radiation, Symbol, Symbol1, Point");
 
-    int cur_x = 2, cur_y = 2;
+    int cur_x = std::abs(mn_x) + 2, cur_y = std::abs(mn_y) + 2;
     for (int i = 0; i < len; i++) {
         std::pair<int, int>delta = { 0, 0 };
 
@@ -147,6 +152,8 @@ std::vector<std::string> set_values(std::vector<size_t>& values, std::vector<Com
             res.push_back(line);
         }
     }
+
+    res.push_back("; End of File");
 
     return res;
 }

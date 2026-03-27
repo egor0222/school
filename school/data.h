@@ -5,10 +5,10 @@
 #include <vector>
 #include <filesystem>
 
-struct data {
-	std::vector<std::string>str;
-};
+//struct data {
+//	std::vector<std::string>str;
+//};
 
-data* getdata(std::filesystem::path in);
+std::vector<std::string> get_data(std::filesystem::path in);
 
 void set_data(std::filesystem::path folger, std::string file_name, std::vector<std::string> str);

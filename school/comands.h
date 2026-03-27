@@ -4,7 +4,7 @@
 #include "data.h"
 
 enum Direction {
-	UP, DOWN, LEFT, RIGHT
+	UP, DOWN, LEFT, RIGHT, NONE
 };
 
 struct Comand {
@@ -13,4 +13,4 @@ struct Comand {
 	size_t max_lenght;
 };
 
-std::vector<Comand> parser(data* in);
+std::vector<Comand> parser(std::vector<std::string>& in);

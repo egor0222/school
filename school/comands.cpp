@@ -52,13 +52,10 @@ Comand parse_str(std::string str) {
 	};
 }
 
-std::vector<Comand> parser(const data* in) {
-	if (in == nullptr)
-		return std::vector<Comand>();
-
+std::vector<Comand> parser(std::vector<std::string>& in) {
 	std::vector<Comand>result;
-	result.reserve(in->str.size());
-	for (auto& s : in->str) {
+	result.reserve(in.size());
+	for (auto& s : in) {
 		Comand com = parse_str(s);
 		result.push_back(com);
 	}
