@@ -17,7 +17,7 @@ std::pair<size_t, size_t> get_nums(std::string str) {
 }
 
 Comand parse_str(std::string str) {
-	const std::map<std::string, Direction>dir_map = {
+	static const std::map<std::string, Direction>dir_map = {
 		std::make_pair(std::string("up"), Direction::UP),
 		std::make_pair(std::string("down"), Direction::DOWN),
 		std::make_pair(std::string("right"), Direction::RIGHT),
@@ -31,7 +31,7 @@ Comand parse_str(std::string str) {
 
 	auto ptr = dir_map.find(tmp);
 	if (ptr == dir_map.end())
-		throw "String is not in map";
+		throw std::runtime_error("String is not in map");
 
 	pos++;
 	tmp.clear();
@@ -41,12 +41,14 @@ Comand parse_str(std::string str) {
 	auto pr = get_nums(tmp);
 
 	if (pr.first == 0 || pr.second == 0 || pr.first > pr.second)
-		throw "Uncorrect numbers";
+		throw std::runtime_error("Uncorrect numbers");
 
-	return Comand {
+	constexpr size_t mx_value = 100;
+
+	return Comand{
 		.dir = ptr->second,
-		.min_lenght = pr.first,
-		.max_lenght = pr.second
+		.min_lenght = std::min(pr.first, mx_value),
+		.max_lenght = std::min(pr.second, mx_value)
 	};
 }
 
