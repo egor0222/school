@@ -32,14 +32,24 @@ int main(int argc, char* argv[]) {
 	std::filesystem::path p = in[1];
 	size_t tests = std::stoull(in[2]);
 
-	auto dt = get_data(p);
+	std::vector<Comand>com;
+	std::vector<std::vector<size_t>>val;
+	std::filesystem::path pp;
 
-	auto com = parser(dt);
+	try {
+		std::vector<std::string>dt = get_data(p);
 
-	auto val = get_values(com, tests);
+		com = parser(dt);
 
-	auto pp = p.parent_path();
-	pp.append("tests");
+		val = get_values(com, tests);
+
+		pp = p.parent_path();
+		pp.append("tests");
+	}
+	catch (std::exception& e) {
+		std::cerr << e.what() << '\n';
+		return 0;
+	}
 
 	for (int i = 0; i < tests; i++) {
 		auto test = set_values(val[i], com);
