@@ -47,4 +47,5 @@ int main(int argc, char* argv[]) {
 		set_data(pp, "test" + std::to_string(i + 1), test);
 	}
 
+	return 0;
 }

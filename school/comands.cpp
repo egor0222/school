@@ -56,6 +56,8 @@ std::vector<Comand> parser(std::vector<std::string>& in) {
 	std::vector<Comand>result;
 	result.reserve(in.size());
 	for (auto& s : in) {
+		if (s.empty()) 
+			continue;
 		Comand com = parse_str(s);
 		result.push_back(com);
 	}
