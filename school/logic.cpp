@@ -145,6 +145,9 @@ std::vector<std::string> set_values(std::vector<size_t>& values, std::vector<Com
             cur_x += delta.first;
             cur_y += delta.second;
 
+            if (!com[i].flag)
+                continue;
+            
             Point tmp;
             tmp.add_bit(com[i].dir);
 

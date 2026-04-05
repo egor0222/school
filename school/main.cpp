@@ -14,12 +14,12 @@ std::vector<std::string> parce_input(int argc, char* argv[]) {
 }
 
 int main(int argc, char* argv[]) {
-	//auto data = parce_input(argc, argv);
+	//auto in = parce_input(argc, argv);
 
 	std::vector<std::string>in = { "abc", "C:\\All\\Examples\\Example.txt", "5" };
 
-	/*
-	std::cout << "It works" << std::endl;
+	
+	/*std::cout << "It works" << std::endl;
 	for (auto& str : data) {
 		std::cout << str << std::endl;
 	}*/

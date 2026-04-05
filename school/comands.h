@@ -11,6 +11,7 @@ struct Comand {
 	Direction dir;
 	size_t min_lenght;
 	size_t max_lenght;
+	bool flag;
 };
 
 std::vector<Comand> parser(std::vector<std::string>& in);

@@ -35,10 +35,16 @@ Comand parse_str(std::string str) {
 
 	pos++;
 	tmp.clear();
-	while (pos < str.size() && (str[pos] != ' ' || str[pos] != '\n')) 
+	while (pos < str.size() && str[pos] != ' ' && str[pos] != '\n') 
 		tmp.push_back(str[pos++]);
 
 	auto pr = get_nums(tmp);
+
+	pos++;
+	bool fl;
+	if (pos >= str.size())
+		throw std::runtime_error("Flag is not in comand line");
+	fl = (str[pos] == '1');
 
 	if (pr.first == 0 || pr.second == 0 || pr.first > pr.second)
 		throw std::runtime_error("Uncorrect numbers");
@@ -48,7 +54,8 @@ Comand parse_str(std::string str) {
 	return Comand{
 		.dir = ptr->second,
 		.min_lenght = std::min(pr.first, mx_value),
-		.max_lenght = std::min(pr.second, mx_value)
+		.max_lenght = std::min(pr.second, mx_value),
+		.flag = fl
 	};
 }
 
