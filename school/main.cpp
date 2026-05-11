@@ -22,6 +22,8 @@ int main(int argc, char* argv[]) {
 	const size_t path_in = 0;
 	const size_t num_in = 1;
 
+	std::cout << "HELLO\nPlease enter the path to the template file and the number of tests:" << std::endl;
+
 	std::getline(std::cin, in[path_in]);
 	std::getline(std::cin, in[num_in]);
 
