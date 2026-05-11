@@ -17,7 +17,7 @@ void Point::add_bit(Direction d) {
 
     size_t pos = ptr->second;
 
-    mask[pos] = 1;
+    mask[pos] = true;
 }
 
 size_t Point::get_value() { return mask.to_ullong(); }
@@ -123,6 +123,9 @@ std::vector<std::string> set_values(std::vector<size_t>& values, std::vector<Com
     res.push_back("; A set of special Fields: x, y, Wall, Color, Radiation, Symbol, Symbol1, Point");
 
     int cur_x = std::abs(mn_x) + 2, cur_y = std::abs(mn_y) + 2;
+
+    std::map<std::pair<int, int>, Point>obs;
+
     for (int i = 0; i < len; i++) {
         std::pair<int, int>delta = { 0, 0 };
 
@@ -149,6 +152,12 @@ std::vector<std::string> set_values(std::vector<size_t>& values, std::vector<Com
                 continue;
             
             Point tmp;
+
+            if (obs.find(std::make_pair(cur_x, cur_y)) == obs.end())
+                tmp = Point();
+            else
+                tmp = obs[std::make_pair(cur_x, cur_y)];
+
             tmp.add_bit(com[i].dir);
 
             std::string line = to_str(cur_x, cur_y, tmp.get_value());
