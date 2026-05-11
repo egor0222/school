@@ -39,6 +39,12 @@ int main(int argc, char* argv[]) {
 	std::filesystem::path p = in[0];
 	size_t tests = std::stoull(in[1]);
 
+	if (tests <= 0 || tests > size_t(2e5)) {
+		std::cout << "Incorrect input number" << std::endl;
+		system("pause");
+		return 0;
+	}
+
 	std::vector<Comand>com;
 	std::vector<std::vector<size_t>>val;
 	std::filesystem::path out_path;
@@ -65,6 +71,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	std::cout << "Success!" << std::endl;
+
 	system("pause");
 	return 0;
 }
